@@ -24,6 +24,10 @@ class HRMedium {
 //        println("subset length " + nonDivisibleSubset(7, arrayOf(278, 576, 496, 727, 410, 124, 338, 149, 209, 702, 282, 718, 771, 575, 436)))
 //        extraLongFactorials(25)
         println("moves ${queensAttack(5, 3, 4,3,arrayOf(arrayOf(5,5),arrayOf(4,2),arrayOf(2,3)))}")
+        println("moves ${queensAttack(5, 3, 2,3,arrayOf(arrayOf(5,5),arrayOf(4,2),arrayOf(2,3)))}")
+        println("moves ${queensAttack(5, 3, 3,2,arrayOf(arrayOf(5,5),arrayOf(4,2),arrayOf(2,3)))}")
+        println("moves ${queensAttack(5, 3, 3,4,arrayOf(arrayOf(5,5),arrayOf(4,2),arrayOf(2,3)))}")
+        println("moves ${queensAttack(5, 3, 3,3,arrayOf(arrayOf(5,5),arrayOf(4,2),arrayOf(2,3)))}")
     }
 
     private fun climbingLeaderboard(scores: Array<Int>, alice: Array<Int>): Array<Int> {
@@ -140,14 +144,14 @@ class HRMedium {
         println(myBigInt.toString())
     }
 
-    private fun queensAttack(n: Int, k: Int, rQ: Int, cQ: Int, obstacles: Array<Array<Int>>): Int {
+    private fun queensAttack(n: Int, k: Int, rQ: Int, cQ: Int, obstacles: Array<Array<Int>>) {
         val left = Pair(rQ, 1)
         val right = Pair(rQ, n)
         val top = Pair(n, cQ)
         val bottom = Pair(1, cQ)
-        val topLeft = Pair()
-        val bottomLeft = Pair(1, 1 + cQ - rQ)
-        val topRight = Pair(n, cQ + n - rQ)
-        val bottomRight = Pair(0, cQ)
+        val topLeft = if(n - rQ >= cQ - 1) Pair(1, cQ - (n - rQ)) else Pair(n, cQ - (n - rQ))
+        val bottomLeft = if (rQ >= cQ) Pair(rQ - cQ + 1, 1) else Pair(1, cQ - rQ + 1)
+        val topRight = if (n - rQ >= n - cQ) Pair(rQ + (n - cQ), n) else Pair(n, cQ + (n - rQ))
+        val bottomRight = if (rQ - 1>= n - cQ) Pair(rQ - (n - cQ), n) else Pair(n, cQ - (n - rQ))
     }
 }
