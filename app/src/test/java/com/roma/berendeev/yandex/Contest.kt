@@ -1,13 +1,14 @@
 package com.roma.berendeev.yandex
 
 import org.junit.Test
+import java.util.LinkedList
 
 class Contest {
 
     @Test
     fun generateGaps() {
 
-        val count = 3
+        val count = 4
         if (count == 0) return
 
         openGap(StringBuilder(), 0, count)
@@ -17,24 +18,41 @@ class Contest {
         println("-----------------")
 
         var level = 1
-        val stack = arrayListOf<Int>()
+        val levelStack = LinkedList<Int>()
         var openGaps = 1
-        val gaps = StringBuilder().append('(')
-        while (level < 2 * count && stack.isNotEmpty()) {
+        val gapsStack = LinkedList<Int>()
+        val gaps = CharArray(count * 2) { '(' }
+        while (level < 2 * count || levelStack.isNotEmpty()) {
             if (level == 2 * count) {
                 println(gaps)
-                level = stack.removeAt(stack.lastIndex)
-                gaps.delete(level, gaps.length)
-            } else {
-                if (openGaps > 0 && true) {
-                    stack.add(level)
-                }
-                if (openGaps < count) {
-                    gaps.append('(')
+                if (levelStack.isNotEmpty()) {
+                    level = levelStack.pop()
+                    openGaps = gapsStack.pop()
+                    gaps[level] = ')'
+                    openGaps--
                     level++
                 }
+            } else {
+                val canAddCloseGap = openGaps > 0
+                val canAddOpenGap = openGaps + level < count * 2
+                if (canAddCloseGap && canAddOpenGap) {
+                    levelStack.push(level)
+                    gapsStack.push(openGaps)
+                    gaps[level] = '('
+                    openGaps++
+                } else {
+                    if (canAddOpenGap) {
+                        gaps[level] = '('
+                        openGaps++
+                    } else {
+                        gaps[level] = ')'
+                        openGaps--
+                    }
+                }
+                level++
             }
         }
+        println(gaps)
     }
 
     private fun handleGaps(gaps: StringBuilder, openGaps: Int, count: Int) {
