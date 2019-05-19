@@ -38,35 +38,35 @@ class Anagrams {
             println(0)
         }
     }
-}
 
-fun isAnagramm() {
-    val inputStream = System.`in`
+    fun isAnagramm() {
+        val inputStream = System.`in`
 
-    val intArray = IntArray(256)
-    var readResult = inputStream.read()
-    var isFirstString = true
-    while (readResult != -1) {
-        if (readResult == CR) {
-            isFirstString = false
-        } else {
-            if (isFirstString) {
-                intArray[readResult]++
+        val intArray = IntArray(256)
+        var readResult = inputStream.read()
+        var isFirstString = true
+        while (readResult != -1) {
+            if (readResult == CR) {
+                isFirstString = false
             } else {
-                intArray[readResult]--
+                if (isFirstString) {
+                    intArray[readResult]++
+                } else {
+                    intArray[readResult]--
+                }
+            }
+            readResult = inputStream.read()
+        }
+        var isAllElementsAreZero = true
+        intArray.forEach { element ->
+            if (element != 0) {
+                isAllElementsAreZero = false
             }
         }
-        readResult = inputStream.read()
-    }
-    var isAllElementsAreZero = true
-    intArray.forEach { element ->
-        if (element != 0) {
-            isAllElementsAreZero = false
+        if (isAllElementsAreZero) {
+            println(1)
+        } else {
+            println(0)
         }
-    }
-    if (isAllElementsAreZero) {
-        println(1)
-    } else {
-        println(0)
     }
 }
