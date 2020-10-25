@@ -1,6 +1,5 @@
 package com.roma.berendeev.yandex
 
-import com.roma.berendeev.contest.StringInputStream
 import org.junit.Test
 import java.io.InputStream
 
@@ -16,7 +15,7 @@ class RemoveDoubles {
             array.add(it - 20)
         }
         array.add(0, array.size)
-        val inputStream = StringInputStream(array.joinToString(separator = CR.toString()) { it.toString() })
+        val inputStream = Contest.StringStream(array.joinToString(separator = CR.toString()) { it.toString() })
 
         charDoubles(inputStream)
     }
