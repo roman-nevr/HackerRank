@@ -1,6 +1,7 @@
 package com.roma.berendeev.dynamic;
 
 import java.util.List;
+import java.util.Objects;
 
 class SqrtResult {
 
@@ -23,5 +24,27 @@ class SqrtResult {
             stringBuilder.append(", ");
         }
         return stringBuilder.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SqrtResult that = (SqrtResult) o;
+        return sourceNumber == that.sourceNumber &&
+                numbers.equals(that.numbers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sourceNumber, numbers);
+    }
+
+    @Override
+    public String toString() {
+        return "SqrtResult{" +
+                "sourceNumber=" + sourceNumber +
+                ", numbers=" + numbers +
+                '}';
     }
 }
